@@ -6,9 +6,6 @@ info:
   api-doc: /swagger-ui.html
 spring:
     datasource:
-#        url: jdbc:mysql://10.163.62.120:3306/smart_home?allowMultiQueries=true
-#        username: root
-#        password: gj273%Yhb.l)
         url: jdbc:mysql://localhost:3306/smart_home?allowMultiQueries=true
         username: root
         password: root
