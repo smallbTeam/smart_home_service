@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atat.soft.deviceGroup.dao.TabDeviceGroupDao">
+
+    <insert id="addTabDeviceGroup" parameterType="com.atat.soft.deviceGroup.bean.TabDeviceGroup">
+        INSERT INTO tab_device_group
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="uid != null">
+                    uid,
+                </if>
+                <if test="address != null">
+                    address,
+                </if>
+                <if test="createdDate != null">
+                    createdDate,
+                </if>
+                <if test="createdDate != null">
+                    modifiedDate,
+                </if>
+                <if test="isDeleted != null">
+                    isDeleted,
+                </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="uid != null">
+                    #{uid},
+                </if>
+                <if test="address != null">
+                    #{address},
+                </if>
+                <if test="createdDate != null">
+                    #{createdDate},
+                </if>
+                <if test="createdDate != null">
+                    #{createdDate},
+                </if>
+                <if test="isDeleted != null">
+                    #{isDeleted},
+                </if>
+        </trim>
+    </insert>
+
+    <update id="updateTabDeviceGroupById" parameterType="com.atat.soft.deviceGroup.bean.TabDeviceGroup">
+        update tab_device_group
+        <trim prefix="set" suffixOverrides=",">
+                <if test="uid != null">
+                    uid =#{uid},
+                </if>
+                <if test="address != null">
+                    address =#{address},
+                </if>
+                <if test="modifiedDate != null">
+                    modifiedDate =#{modifiedDate},
+                </if>
+                <if test="isDeleted != null">
+                    isDeleted =#{isDeleted},
+                </if>
+        </trim>
+        where id = #{tabDeviceGroupId}
+    </update>
+
+    <select id="selectTabDeviceGroupList" parameterType="java.util.Map"
+            resultType="java.util.Map">
+        select
+            uid uid,
+            address address,
+            createdDate createdDate,
+            modifiedDate modifiedDate,
+            isDeleted isDeleted,
+        id tabDeviceGroupId
+        from tab_device_group
+        WHERE
+        isDeleted = 0
+        <if test="tabDeviceGroupId != null">
+            and id = #{tabDeviceGroupId}
+        </if>
+        <if test="uid != null">
+            and uid like #{uid}
+        </if>
+        <if test="address != null">
+            and address like #{address}
+        </if>
+        <if test="createdDate != null">
+            and createdDate = #{createdDate}
+        </if>
+        <if test="modifiedDate != null">
+            and modifiedDate = #{modifiedDate}
+        </if>
+        ORDER BY id ASC
+    </select>
+
+    <delete id="delTabDeviceGroupById" parameterType="java.lang.Long">
+        DELETE FROM  tab_device_group
+        where
+        id = #{tabDeviceGroupId}
+    </delete>
+
+</mapper>

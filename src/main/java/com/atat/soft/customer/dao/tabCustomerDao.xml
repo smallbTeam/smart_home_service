@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atat.soft.customer.dao.TabCustomerDao">
+
+    <insert id="addTabCustomer" parameterType="com.atat.soft.customer.bean.TabCustomer">
+        INSERT INTO tab_customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="mobelPhone != null">
+                    mobelPhone,
+                </if>
+                <if test="password != null">
+                    password,
+                </if>
+                <if test="wxId != null">
+                    wxId,
+                </if>
+                <if test="nickName != null">
+                    nickName,
+                </if>
+                <if test="birthday != null">
+                    birthday,
+                </if>
+                <if test="sex != null">
+                    sex,
+                </if>
+                <if test="token != null">
+                    token,
+                </if>
+                <if test="createdDate != null">
+                    createdDate,
+                </if>
+                <if test="createdDate != null">
+                    modifiedDate,
+                </if>
+                    isDeleted
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="mobelPhone != null">
+                    #{mobelPhone},
+                </if>
+                <if test="password != null">
+                    #{password},
+                </if>
+                <if test="wxId != null">
+                    #{wxId},
+                </if>
+                <if test="nickName != null">
+                    #{nickName},
+                </if>
+                <if test="birthday != null">
+                    #{birthday},
+                </if>
+                <if test="sex != null">
+                    #{sex},
+                </if>
+                <if test="token != null">
+                    #{token},
+                </if>
+                <if test="createdDate != null">
+                    #{createdDate},
+                </if>
+                <if test="createdDate != null">
+                    #{createdDate},
+                </if>
+                0
+        </trim>
+    </insert>
+
+    <update id="updateTabCustomerById" parameterType="com.atat.soft.customer.bean.TabCustomer">
+        update tab_customer
+        <trim prefix="set" suffixOverrides=",">
+                <if test="mobelPhone != null">
+                    mobelPhone =#{mobelPhone},
+                </if>
+                <if test="password != null">
+                    password =#{password},
+                </if>
+                <if test="wxId != null">
+                    wxId =#{wxId},
+                </if>
+                <if test="nickName != null">
+                    nickName =#{nickName},
+                </if>
+                <if test="birthday != null">
+                    birthday =#{birthday},
+                </if>
+                <if test="sex != null">
+                    sex =#{sex},
+                </if>
+                <if test="token != null">
+                    token =#{token},
+                </if>
+                <if test="modifiedDate != null">
+                    modifiedDate =#{modifiedDate},
+                </if>
+                <if test="isDeleted != null">
+                    isDeleted =#{isDeleted},
+                </if>
+        </trim>
+        where id = #{tabCustomerId}
+    </update>
+
+    <select id="selectTabCustomerList" parameterType="java.util.Map"
+            resultType="java.util.Map">
+        select
+            mobelPhone mobelPhone,
+            password password,
+            wxId wxId,
+            nickName nickName,
+            birthday birthday,
+            sex sex,
+            token token,
+            createdDate createdDate,
+            modifiedDate modifiedDate,
+            isDeleted isDeleted,
+        id tabCustomerId
+        from tab_customer
+        WHERE
+        isDeleted = 0
+        <if test="tabCustomerId != null">
+            and id = #{tabCustomerId}
+        </if>
+        <if test="mobelPhone != null">
+            and mobelPhone like #{mobelPhone}
+        </if>
+        <if test="password != null">
+            and password like #{password}
+        </if>
+        <if test="wxId != null">
+            and wxId like #{wxId}
+        </if>
+        <if test="nickName != null">
+            and nickName like #{nickName}
+        </if>
+        <if test="birthday != null">
+            and birthday = #{birthday}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+        <if test="token != null">
+            and token like #{token}
+        </if>
+        <if test="createdDate != null">
+            and createdDate = #{createdDate}
+        </if>
+        <if test="modifiedDate != null">
+            and modifiedDate = #{modifiedDate}
+        </if>
+        ORDER BY id ASC
+    </select>
+
+    <delete id="delTabCustomerById" parameterType="java.lang.Integer">
+        DELETE FROM  tab_customer
+        where
+        id = #{tabCustomerId}
+    </delete>
+
+</mapper>

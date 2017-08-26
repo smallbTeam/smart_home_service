@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atat.soft.freshair.dao.DataFreshairWeekDao">
+
+    <insert id="addDataFreshairWeek" parameterType="com.atat.soft.freshair.bean.DataFreshairWeek">
+        INSERT INTO data_freshair_week
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            recordTime,
+                <if test="tabDeviceFreshairId != null">
+                    tabDeviceFreshairId,
+                </if>
+                <if test="wendu != null">
+                    wendu,
+                </if>
+                <if test="shidu != null">
+                    shidu,
+                </if>
+                <if test="pm != null">
+                    pm,
+                </if>
+                <if test="voc != null">
+                    voc,
+                </if>
+                <if test="co2 != null">
+                    co2,
+                </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{dataFreshairWeekId},
+                <if test="tabDeviceFreshairId != null">
+                    #{tabDeviceFreshairId},
+                </if>
+                <if test="wendu != null">
+                    #{wendu},
+                </if>
+                <if test="shidu != null">
+                    #{shidu},
+                </if>
+                <if test="pm != null">
+                    #{pm},
+                </if>
+                <if test="voc != null">
+                    #{voc},
+                </if>
+                <if test="co2 != null">
+                    #{co2},
+                </if>
+        </trim>
+    </insert>
+
+    <update id="updateDataFreshairWeekById" parameterType="com.atat.soft.freshair.bean.DataFreshairWeek">
+        update data_freshair_week
+        <trim prefix="set" suffixOverrides=",">
+                <if test="tabDeviceFreshairId != null">
+                    tabDeviceFreshairId =#{tabDeviceFreshairId},
+                </if>
+                <if test="wendu != null">
+                    wendu =#{wendu},
+                </if>
+                <if test="shidu != null">
+                    shidu =#{shidu},
+                </if>
+                <if test="pm != null">
+                    pm =#{pm},
+                </if>
+                <if test="voc != null">
+                    voc =#{voc},
+                </if>
+                <if test="co2 != null">
+                    co2 =#{co2},
+                </if>
+        </trim>
+        where recordTime = #{dataFreshairWeekId}
+    </update>
+
+    <select id="selectDataFreshairWeekList" parameterType="java.util.Map"
+            resultType="java.util.Map">
+        select
+            tabDeviceFreshairId tabDeviceFreshairId,
+            wendu wendu,
+            shidu shidu,
+            pm pm,
+            voc voc,
+            co2 co2,
+        recordTime recordTime
+        from data_freshair_week
+        WHERE
+        1=1
+        <if test="recordTimeStart !=null">
+            <![CDATA[ and  recordTime >= #{recordTimeStart}]]>
+        </if>
+        <if test="recordTimeEnd !=null">
+            <![CDATA[ and  recordTime <= #{recordTimeEnd}]]>
+        </if>
+        <if test="tabDeviceFreshairId != null">
+            and tabDeviceFreshairId = #{tabDeviceFreshairId}
+        </if>
+        <if test="wendu != null">
+            and wendu = #{wendu}
+        </if>
+        <if test="shidu != null">
+            and shidu = #{shidu}
+        </if>
+        <if test="pm != null">
+            and pm = #{pm}
+        </if>
+        <if test="voc != null">
+            and voc = #{voc}
+        </if>
+        <if test="co2 != null">
+            and co2 = #{co2}
+        </if>
+        ORDER BY recordTime ASC
+    </select>
+
+    <delete id="delDataFreshairWeekById" parameterType="java.lang.Long">
+        DELETE FROM  data_freshair_week
+        where
+        recordTime = #{dataFreshairWeekId}
+    </delete>
+
+    <insert id="addDataWeekList" parameterType="java.util.List">
+        INSERT INTO data_freshair_week
+        (recordTime, tabDeviceFreshairId, wendu, shidu,pm,voc,co2)
+        values
+        <foreach collection ="list" item="deviceData" index= "index" separator =",">
+            (#{deviceData.recordTime},
+            #{deviceData.tabDeviceFreshairId},
+            #{deviceData.wendu},
+            #{deviceData.shidu},
+            #{deviceData.pm},
+            #{deviceData.voc},
+            #{deviceData.co2}
+            )
+        </foreach >
+    </insert>
+
+</mapper>

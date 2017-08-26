@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atat.soft.property.dao.TabPropertyMapDao">
+
+    <insert id="addTabPropertyMap" parameterType="com.atat.soft.property.bean.TabPropertyMap">
+        INSERT INTO tab_property_map
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            propkey,
+                <if test="propval != null">
+                    propval,
+                </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{tabPropertyMapId},
+                <if test="propval != null">
+                    #{propval},
+                </if>
+        </trim>
+    </insert>
+
+    <update id="updateTabPropertyMapById" parameterType="com.atat.soft.property.bean.TabPropertyMap">
+        update tab_property_map
+        <trim prefix="set" suffixOverrides=",">
+                <if test="propval != null">
+                    propval =#{propval},
+                </if>
+        </trim>
+        where propkey = #{tabPropertyMapId}
+    </update>
+
+    <select id="selectTabPropertyMapList" parameterType="java.util.Map"
+            resultType="java.util.Map">
+        select
+            propval propval,
+        propkey tabPropertyMapId
+        from tab_property_map
+        WHERE
+        1=1
+        <if test="tabPropertyMapId != null">
+            and propkey = #{tabPropertyMapId}
+        </if>
+        <if test="propval != null">
+            and propval like #{propval}
+        </if>
+        ORDER BY propkey ASC
+    </select>
+
+    <delete id="delTabPropertyMapById" parameterType="java.lang.String">
+        DELETE FROM  tab_property_map
+        where
+        propkey = #{tabPropertyMapId}
+    </delete>
+
+</mapper>

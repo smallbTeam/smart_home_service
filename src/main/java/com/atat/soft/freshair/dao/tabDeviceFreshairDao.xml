@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atat.soft.freshair.dao.TabDeviceFreshairDao">
+
+    <insert id="addTabDeviceFreshair" parameterType="com.atat.soft.freshair.bean.TabDeviceFreshair">
+        INSERT INTO tab_device_freshair
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="deviceSeriaNumber != null">
+                    deviceSeriaNumber,
+                </if>
+                <if test="deviceCategory != null">
+                    deviceCategory,
+                </if>
+                <if test="ip != null">
+                    ip,
+                </if>
+                <if test="name != null">
+                    name,
+                </if>
+                <if test="tabDeviceGroupId != null">
+                    tabDeviceGroupId,
+                </if>
+                <if test="state != null">
+                    state,
+                </if>
+                <if test="createdDate != null">
+                    createdDate,
+                </if>
+                <if test="createdDate != null">
+                    modifiedDate,
+                </if>
+                    isDeleted
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="deviceSeriaNumber != null">
+                    #{deviceSeriaNumber},
+                </if>
+                <if test="deviceCategory != null">
+                    #{deviceCategory},
+                </if>
+                <if test="ip != null">
+                    #{ip},
+                </if>
+                <if test="name != null">
+                    #{name},
+                </if>
+                <if test="tabDeviceGroupId != null">
+                    #{tabDeviceGroupId},
+                </if>
+                <if test="state != null">
+                    #{state},
+                </if>
+                <if test="createdDate != null">
+                    #{createdDate},
+                </if>
+                <if test="createdDate != null">
+                    #{createdDate},
+                </if>
+                0
+        </trim>
+    </insert>
+
+    <update id="updateTabDeviceFreshairById" parameterType="com.atat.soft.freshair.bean.TabDeviceFreshair">
+        update tab_device_freshair
+        <trim prefix="set" suffixOverrides=",">
+                <if test="deviceSeriaNumber != null">
+                    deviceSeriaNumber =#{deviceSeriaNumber},
+                </if>
+                <if test="deviceCategory != null">
+                    deviceCategory =#{deviceCategory},
+                </if>
+                <if test="ip != null">
+                    ip =#{ip},
+                </if>
+                <if test="name != null">
+                    name =#{name},
+                </if>
+                <if test="tabDeviceGroupId != null">
+                    tabDeviceGroupId =#{tabDeviceGroupId},
+                </if>
+                <if test="state != null">
+                    state =#{state},
+                </if>
+                <if test="modifiedDate != null">
+                    modifiedDate =#{modifiedDate},
+                </if>
+                <if test="isDeleted != null">
+                    isDeleted =#{isDeleted},
+                </if>
+        </trim>
+        where id = #{tabDeviceFreshairId}
+    </update>
+
+    <select id="selectTabDeviceFreshairList" parameterType="java.util.Map"
+            resultType="java.util.Map">
+        select
+            deviceSeriaNumber deviceSeriaNumber,
+            deviceCategory deviceCategory,
+            ip ip,
+            name name,
+            tabDeviceGroupId tabDeviceGroupId,
+            state state,
+            createdDate createdDate,
+            modifiedDate modifiedDate,
+            isDeleted isDeleted,
+        id tabDeviceFreshairId
+        from tab_device_freshair
+        WHERE
+        isDeleted = 0
+        <if test="tabDeviceFreshairId != null">
+            and id = #{tabDeviceFreshairId}
+        </if>
+        <if test="deviceSeriaNumber != null">
+            and deviceSeriaNumber like #{deviceSeriaNumber}
+        </if>
+        <if test="deviceCategory != null">
+            and deviceCategory like #{deviceCategory}
+        </if>
+        <if test="ip != null">
+            and ip like #{ip}
+        </if>
+        <if test="name != null">
+            and name like #{name}
+        </if>
+        <if test="tabDeviceGroupId != null">
+            and tabDeviceGroupId like #{tabDeviceGroupId}
+        </if>
+        <if test="state != null">
+            and state = #{state}
+        </if>
+        <if test="createdDate != null">
+            and createdDate = #{createdDate}
+        </if>
+        <if test="modifiedDate != null">
+            and modifiedDate = #{modifiedDate}
+        </if>
+        ORDER BY id ASC
+    </select>
+
+    <delete id="delTabDeviceFreshairById" parameterType="java.lang.Long">
+        DELETE FROM  tab_device_freshair
+        where
+        id = #{tabDeviceFreshairId}
+    </delete>
+
+</mapper>
