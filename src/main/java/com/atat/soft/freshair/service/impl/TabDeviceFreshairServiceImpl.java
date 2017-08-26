@@ -2,6 +2,7 @@ package com.atat.soft.freshair.service.impl;
 
 import com.atat.core.db.model.PageTurn;
 import com.atat.core.db.service.impl.BaseSupportServiceImpl;
+import com.atat.soft.common.bootitem.MinaServerHandler;
 import com.atat.soft.freshair.bean.TabDeviceFreshair;
 import com.atat.soft.freshair.dao.TabDeviceFreshairDao;
 import com.atat.soft.freshair.service.TabDeviceFreshairService;
@@ -81,5 +82,9 @@ public class TabDeviceFreshairServiceImpl extends BaseSupportServiceImpl impleme
         else {
             return null;
         }
+    }
+
+    @Override public Map<String, Object> getFreshairNowData(String deviceSeriaNumber) {
+        return MinaServerHandler.GetNowData(deviceSeriaNumber);
     }
 }

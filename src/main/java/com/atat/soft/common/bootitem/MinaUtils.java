@@ -7,7 +7,9 @@ import com.atat.soft.freshair.bean.DataFreshairNow;
 import com.atat.soft.freshair.bean.TabDeviceFreshair;
 import com.atat.soft.util.JsonUtil;
 import org.apache.mina.core.session.IoSession;
+import org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 /**
@@ -114,6 +116,11 @@ public class MinaUtils {
      */
     public static MinaFreshAirBean writeBean(MinaFreshAirBean beans, int type, MinaFreshAirBean allDate){
         SaveDeviceData saveDeviceData = new SaveDeviceData();
+        MinaFreshAirBean minaFreshAirBean = null;
+
+        if(beans.getNowVoc()>10000||beans.getNowCo2()>10000){
+            return minaFreshAirBean;
+        }
 
         ////第一次写入存入数据库
         if(type==0||(type==1&&allDate.getState()==0)){
@@ -168,11 +175,14 @@ public class MinaUtils {
      * @return
      */
     private static MinaFreshAirBean  GetDataForTenMinu(MinaFreshAirBean bean){
-        bean.setNowWendu(bean.getAllWendu()/10);
-        bean.setNowShidu(bean.getAllShidu()/10);
-        bean.setNowPm(bean.getAllPm()/10);
-        bean.setNowCo2(bean.getAllCo2()/10);
-        bean.setNowVoc(bean.getAllVoc()/10);
+        DecimalFormat df = new DecimalFormat("#.00");
+        int divisor = 10;
+        bean.setNowWendu( Double.parseDouble(df.format(bean.getAllWendu()/divisor)));
+        bean.setNowShidu(Double.parseDouble(df.format(bean.getAllShidu()/divisor)));
+
+        bean.setNowPm((int)(bean.getAllPm()/divisor));
+        bean.setNowCo2((int)(bean.getAllCo2()/divisor));
+        bean.setNowVoc((int)(bean.getAllVoc()/divisor));
         return bean;
     }
 

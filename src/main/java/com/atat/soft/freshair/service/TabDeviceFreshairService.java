@@ -61,5 +61,10 @@ public interface TabDeviceFreshairService {
      */
     public Map<String, Object> getTabDeviceFreshairByDeviceSeriaNumber(String deviceSeriaNumber);
 
-
+    /**
+     * 依据设备序列号获取空气检测实时数据
+     * @param deviceSeriaNumber
+     * @return
+     */
+    public Map<String, Object> getFreshairNowData(String deviceSeriaNumber);
 }

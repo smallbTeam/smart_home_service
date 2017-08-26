@@ -84,7 +84,9 @@ public class MinaServerHandler extends IoHandlerAdapter {
           ////否则存60次数据
           bean = writeBean(bean,1,map.get(session));
           }
-          map.put(session,bean);
+          if(null!=bean){
+              map.put(session,bean);
+          }
 
     }
 

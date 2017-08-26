@@ -218,5 +218,17 @@ public class TabDeviceFreshairController {
         result.setCode(ResultCode.SUCCESS.getCode());
         return result;
     }
+
+    @ApiOperation("查询 空气监测设备实时数据")
+    @RequestMapping(value = "/freshairNowData/{deviceSeriaNumber}", method = RequestMethod.GET)
+    public JsonResult<Map<String, Object>> getFreshairNowData(
+            @ApiParam(value = "设备ID (必传参数)") @PathVariable String deviceSeriaNumber
+    )throws Exception {
+        JsonResult<Map<String, Object>> result = new JsonResult<Map<String, Object>>();
+        Map<String, Object> rs = new HashMap<String, Object>();
+        result.setObj(tabDeviceFreshairService.getFreshairNowData(deviceSeriaNumber));
+        result.setCode(ResultCode.SUCCESS.getCode());
+        return result;
+    }
 }
 

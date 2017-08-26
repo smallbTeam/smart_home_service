@@ -21,6 +21,7 @@ public class MinaServer {
             // 创建一个非阻塞的server端的Socket
             acceptor = new NioSocketAcceptor();
 
+
             /*
             // 设置日志过滤器
 			acceptor.getFilterChain().addLast("logger",new LoggingFilter());
@@ -37,7 +38,6 @@ public class MinaServer {
 
             // 绑定端口
             acceptor.bind(new InetSocketAddress(PORT));
-
             System.out.println("服务端启动成功...     端口号为：" + PORT);
         } catch (Exception e) {
             System.out.println("服务端启动异常...."+e);
