@@ -5,11 +5,11 @@
     <insert id="addRelCustomerDeviceGroup" parameterType="com.atat.soft.deviceGroup.bean.RelCustomerDeviceGroup">
         INSERT INTO rel_customer_device_group
         <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="customerId != null">
-                    customerId,
+                <if test="tabCustomerId != null">
+                    tabCustomerId,
                 </if>
-                <if test="deviceGroupId != null">
-                    deviceGroupId,
+                <if test="tabDeviceGroupId != null">
+                    tabDeviceGroupId,
                 </if>
                 <if test="groupName != null">
                     groupName,
@@ -29,11 +29,11 @@
                 isDeleted
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="customerId != null">
-                    #{customerId},
+                <if test="tabCustomerId != null">
+                    #{tabCustomerId},
                 </if>
-                <if test="deviceGroupId != null">
-                    #{deviceGroupId},
+                <if test="tabDeviceGroupId != null">
+                    #{tabDeviceGroupId},
                 </if>
                 <if test="groupName != null">
                     #{groupName},
@@ -57,11 +57,11 @@
     <update id="updateRelCustomerDeviceGroupById" parameterType="com.atat.soft.deviceGroup.bean.RelCustomerDeviceGroup">
         update rel_customer_device_group
         <trim prefix="set" suffixOverrides=",">
-                <if test="customerId != null">
-                    customerId =#{customerId},
+                <if test="tabCustomerId != null">
+                    tabCustomerId =#{tabCustomerId},
                 </if>
-                <if test="deviceGroupId != null">
-                    deviceGroupId =#{deviceGroupId},
+                <if test="tabDeviceGroupId != null">
+                    tabDeviceGroupId =#{tabDeviceGroupId},
                 </if>
                 <if test="groupName != null">
                     groupName =#{groupName},
@@ -85,8 +85,8 @@
     <select id="selectRelCustomerDeviceGroupList" parameterType="java.util.Map"
             resultType="java.util.Map">
         select
-            customerId customerId,
-            deviceGroupId deviceGroupId,
+            tabCustomerId tabCustomerId,
+            tabDeviceGroupId tabDeviceGroupId,
             groupName groupName,
             isOnwer isOnwer,
             isSendMsg isSendMsg,
@@ -100,11 +100,11 @@
         <if test="relCustomerDeviceGroupId != null">
             and id = #{relCustomerDeviceGroupId}
         </if>
-        <if test="customerId != null">
-            and customerId = #{customerId}
+        <if test="tabCustomerId != null">
+            and tabCustomerId = #{tabCustomerId}
         </if>
-        <if test="deviceGroupId != null">
-            and deviceGroupId like #{deviceGroupId}
+        <if test="tabDeviceGroupId != null">
+            and tabDeviceGroupId = #{tabDeviceGroupId}
         </if>
         <if test="groupName != null">
             and groupName like #{groupName}

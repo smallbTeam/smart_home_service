@@ -168,9 +168,9 @@ public class WeixinAction {
                     String ticket = (String) jsapiResMap.get("ticket");
                     Integer expires_in_jsapi = (Integer) jsapiResMap.get("expires_in");
                     // 保存ticket
-                    Map<String, Object> prop_tic = tabPropertyMapService.getTabPropertyMapById("jsapiticketTicket");
+                    Map<String, Object> prop_tic = tabPropertyMapService.getTabPropertyMapById("jsapiTicket");
                     TabPropertyMap tabPropertyMap_tic = new TabPropertyMap();
-                    tabPropertyMap_tic.setTabPropertyMapId("jsapiticketTicket");
+                    tabPropertyMap_tic.setTabPropertyMapId("jsapiTicket");
                     tabPropertyMap_tic.setPropval(ticket);
                     if (CollectionUtil.isNotEmpty(prop_tic)) {
                         tabPropertyMapService.updateTabPropertyMapById(tabPropertyMap_tic);
@@ -211,9 +211,9 @@ public class WeixinAction {
         // 时间戳
         String timestamp = String.valueOf(new Date().getTime());
         //获取jsapiticket
-        String jsapiticketTicket = (String) tabPropertyMapService.getTabPropertyMapById("jsapiticketTicket").get("propval");
+        String jsapiTicket = (String) tabPropertyMapService.getTabPropertyMapById("jsapiTicket").get("propval");
         /////拼接sha1
-        String str1 = "jsapi_ticket="+jsapiticketTicket+"&noncestr="+noncestr+"&timestamp="+timestamp+"&url="+mainurl;
+        String str1 = "jsapi_ticket="+jsapiTicket+"&noncestr="+noncestr+"&timestamp="+timestamp+"&url="+mainurl;
         try {
             signature = sha1(str1);
         } catch (NoSuchAlgorithmException e) {

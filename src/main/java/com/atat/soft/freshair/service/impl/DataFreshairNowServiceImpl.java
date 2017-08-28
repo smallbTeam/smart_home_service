@@ -71,9 +71,9 @@ public class DataFreshairNowServiceImpl extends BaseSupportServiceImpl implement
         cal.add(Calendar.HOUR, -6);
         List<Map<String, Object>> deviceDataList = new ArrayList<Map<String, Object>>();
         for (int i=0;i<3;i++){
-            Long recordTimeEnd = cal.getTime().getTime();
-            cal.add(Calendar.HOUR, 1);
             Long recordTimeStart = cal.getTime().getTime();
+            cal.add(Calendar.HOUR, 1);
+            Long recordTimeEnd = cal.getTime().getTime();
             Map<String, Object> param_oneHour = new HashMap<String, Object>();
             param_oneHour.put("recordTimeStart",recordTimeStart);
             param_oneHour.put("recordTimeEnd",recordTimeEnd);

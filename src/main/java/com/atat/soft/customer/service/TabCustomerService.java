@@ -52,7 +52,7 @@ public interface TabCustomerService {
      * 依据Id删除 用户表 记录
      * @param tabCustomerId
      */
-    public void delTabCustomerById(Integer tabCustomerId);
+    public void delTabCustomerById(Long tabCustomerId);
 
     /**
      * 依据微信Id获取用户

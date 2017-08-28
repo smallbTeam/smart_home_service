@@ -41,8 +41,8 @@ public class RelCustomerDeviceGroupController {
     @ApiOperation("查询 所有 用户设备分组关系表 分页")
     @RequestMapping(value = "/relCustomerDeviceGroups", method = RequestMethod.POST)
     public Object getRelCustomerDeviceGroupPageTurn(
-            @ApiParam(value = "用户Id (非必传参数)") @RequestParam(required = false) Long customerId,
-            @ApiParam(value = "设备分组Id (非必传参数)") @RequestParam(required = false) String deviceGroupId,
+            @ApiParam(value = "用户Id (非必传参数)") @RequestParam(required = false) Long tabCustomerId,
+            @ApiParam(value = "设备分组Id (非必传参数)") @RequestParam(required = false) Long tabDeviceGroupId,
             @ApiParam(value = "组名称 (非必传参数)") @RequestParam(required = false) String groupName,
             @ApiParam(value = "用户是否为设备组拥有着 (非必传参数)") @RequestParam(required = false) Integer isOnwer,
             @ApiParam(value = "是否接受消息推送 (非必传参数)") @RequestParam(required = false) Integer isSendMsg,
@@ -51,11 +51,11 @@ public class RelCustomerDeviceGroupController {
             @ApiParam(value = "页码(必传)") @RequestParam Integer pageNo,
             @ApiParam(value = "每页显示多少数据(必传)") @RequestParam Integer pageSize) throws Exception {
         Map<String, Object> rs = new HashMap<String, Object>();
-        if (null != customerId) {
-           rs.put("customerId", customerId);
+        if (null != tabCustomerId) {
+           rs.put("tabCustomerId", tabCustomerId);
         }
-        if (StringUtil.isNotEmpty(deviceGroupId)) {
-           rs.put("deviceGroupId", "%" + deviceGroupId + "%");
+        if (null != tabDeviceGroupId) {
+           rs.put("tabDeviceGroupId", tabDeviceGroupId);
         }
         if (StringUtil.isNotEmpty(groupName)) {
            rs.put("groupName", "%" + groupName + "%");
@@ -78,8 +78,8 @@ public class RelCustomerDeviceGroupController {
     @ApiOperation("查询 所有 用户设备分组关系表")
     @RequestMapping(value = "/allRelCustomerDeviceGroups", method = RequestMethod.POST)
     public JsonResult<Object> selectRelCustomerDeviceGroupList(
-        @ApiParam(value = "用户Id (非必传参数)") @RequestParam(required = false) Long customerId,
-        @ApiParam(value = "设备分组Id (非必传参数)") @RequestParam(required = false) String deviceGroupId,
+        @ApiParam(value = "用户Id (非必传参数)") @RequestParam(required = false) Long tabCustomerId,
+        @ApiParam(value = "设备分组Id (非必传参数)") @RequestParam(required = false) Long tabDeviceGroupId,
         @ApiParam(value = "组名称 (非必传参数)") @RequestParam(required = false) String groupName,
         @ApiParam(value = "用户是否为设备组拥有着 (非必传参数)") @RequestParam(required = false) Integer isOnwer,
         @ApiParam(value = "是否接受消息推送 (非必传参数)") @RequestParam(required = false) Integer isSendMsg,
@@ -88,11 +88,11 @@ public class RelCustomerDeviceGroupController {
         )throws Exception {
         JsonResult<Object> result = new JsonResult<Object>();
         Map<String, Object> rs = new HashMap<String, Object>();
-        if (null != customerId) {
-            rs.put("customerId", customerId);
+        if (null != tabCustomerId) {
+            rs.put("tabCustomerId", tabCustomerId);
         }
-         if (StringUtil.isNotEmpty(deviceGroupId)) {
-            rs.put("deviceGroupId", "%" + deviceGroupId + "%");
+         if (null != tabDeviceGroupId) {
+            rs.put("tabDeviceGroupId", tabDeviceGroupId);
          }
          if (StringUtil.isNotEmpty(groupName)) {
             rs.put("groupName", "%" + groupName + "%");
@@ -117,19 +117,19 @@ public class RelCustomerDeviceGroupController {
     @ApiOperation("新增 用户设备分组关系表")
     @RequestMapping(value = "/relCustomerDeviceGroup", method = RequestMethod.POST)
     public JsonResult<Object> addRelCustomerDeviceGroup(
-                @ApiParam(value = "用户Id (非必传参数)") @RequestParam(required = false) Long customerId,
-                @ApiParam(value = "设备分组Id (非必传参数)") @RequestParam(required = false) String deviceGroupId,
+                @ApiParam(value = "用户Id (非必传参数)") @RequestParam(required = false) Long tabCustomerId,
+                @ApiParam(value = "设备分组Id (非必传参数)") @RequestParam(required = false) Long tabDeviceGroupId,
                 @ApiParam(value = "组名称 (非必传参数)") @RequestParam(required = false) String groupName,
                 @ApiParam(value = "用户是否为设备组拥有着 (非必传参数)") @RequestParam(required = false) Integer isOnwer,
                 @ApiParam(value = "是否接受消息推送 (非必传参数)") @RequestParam(required = false) Integer isSendMsg
             ) throws Exception {
         JsonResult<Object> result = new JsonResult<Object>();
         RelCustomerDeviceGroup relCustomerDeviceGroup = new RelCustomerDeviceGroup();
-        if (null != customerId) {
-            relCustomerDeviceGroup.setCustomerId(customerId);
+        if (null != tabCustomerId) {
+            relCustomerDeviceGroup.setTabCustomerId(tabCustomerId);
         }
-        if (StringUtil.isNotEmpty(deviceGroupId)) {
-           relCustomerDeviceGroup.setDeviceGroupId(deviceGroupId);
+        if (null != tabDeviceGroupId) {
+           relCustomerDeviceGroup.setTabDeviceGroupId(tabDeviceGroupId);
         }
         if (StringUtil.isNotEmpty(groupName)) {
            relCustomerDeviceGroup.setGroupName(groupName);
@@ -150,8 +150,8 @@ public class RelCustomerDeviceGroupController {
     @RequestMapping(value = "/relCustomerDeviceGroup/{relCustomerDeviceGroupId}", method = RequestMethod.PUT)
     public JsonResult<Object> updateRelCustomerDeviceGroupById(
             @ApiParam(value = "用户-设备分组关联Id (必传参数)") @PathVariable Long  relCustomerDeviceGroupId,
-             @ApiParam(value = "用户Id (非必传参数)") @RequestParam(required = false) Long customerId,
-             @ApiParam(value = "设备分组Id (非必传参数)") @RequestParam(required = false) String deviceGroupId,
+             @ApiParam(value = "用户Id (非必传参数)") @RequestParam(required = false) Long tabCustomerId,
+             @ApiParam(value = "设备分组Id (非必传参数)") @RequestParam(required = false) Long tabDeviceGroupId,
              @ApiParam(value = "组名称 (非必传参数)") @RequestParam(required = false) String groupName,
              @ApiParam(value = "用户是否为设备组拥有着 (非必传参数)") @RequestParam(required = false) Integer isOnwer,
              @ApiParam(value = "是否接受消息推送 (非必传参数)") @RequestParam(required = false) Integer isSendMsg,
@@ -161,11 +161,11 @@ public class RelCustomerDeviceGroupController {
         RelCustomerDeviceGroup relCustomerDeviceGroup = new RelCustomerDeviceGroup();
         relCustomerDeviceGroup.setRelCustomerDeviceGroupId(relCustomerDeviceGroupId);
 
-         if (null != customerId) {
-            relCustomerDeviceGroup.setCustomerId(customerId);
+         if (null != tabCustomerId) {
+            relCustomerDeviceGroup.setTabCustomerId(tabCustomerId);
          }
-         if (StringUtil.isNotEmpty(deviceGroupId)) {
-            relCustomerDeviceGroup.setDeviceGroupId(deviceGroupId);
+         if (null != tabDeviceGroupId) {
+            relCustomerDeviceGroup.setTabDeviceGroupId(tabDeviceGroupId);
          }
          if (StringUtil.isNotEmpty(groupName)) {
             relCustomerDeviceGroup.setGroupName(groupName);

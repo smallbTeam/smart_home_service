@@ -10,7 +10,7 @@ import java.util.Date;
 public class TabCustomer {
 
     //用户ID
-    private Integer  tabCustomerId;
+    private Long  tabCustomerId;
 
     //电话
     private String mobelPhone;
@@ -69,11 +69,11 @@ public class TabCustomer {
         this.isDeleted = isDeleted;
     }
 
-    public Integer  getTabCustomerId(){
+    public Long  getTabCustomerId(){
         return tabCustomerId;
     }
 
-    public void setTabCustomerId(Integer  tabCustomerId) {
+    public void setTabCustomerId(Long  tabCustomerId) {
         this.tabCustomerId = tabCustomerId;
     }
 

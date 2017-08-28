@@ -63,7 +63,7 @@ public class TabCustomerServiceImpl extends BaseSupportServiceImpl implements Ta
     }
 
     @Override
-    public void delTabCustomerById(Integer tabCustomerId) {
+    public void delTabCustomerById(Long tabCustomerId) {
      TabCustomer tabCustomer = new TabCustomer();
      tabCustomer.setIsDeleted(1);
      tabCustomer.setTabCustomerId(tabCustomerId);
@@ -92,7 +92,7 @@ public class TabCustomerServiceImpl extends BaseSupportServiceImpl implements Ta
                 Map<String, Object> customerMap = customerList.get(0);
                 //绑定wxId
                 TabCustomer customer = new TabCustomer();
-                customer.setTabCustomerId(Integer.parseInt(customerMap.get("tabCustomerId").toString()));
+                customer.setTabCustomerId(Long.parseLong(customerMap.get("tabCustomerId").toString()));
                 customer.setWxId(wxId);
                 tabCustomerDao.updateTabCustomerById(customer);
             }

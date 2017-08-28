@@ -13,10 +13,10 @@ public class RelCustomerDeviceGroup {
     private Long  relCustomerDeviceGroupId;
 
     //用户Id
-    private Long customerId;
+    private Long tabCustomerId;
 
     //设备分组Id
-    private String deviceGroupId;
+    private Long tabDeviceGroupId;
 
     //组名称
     private String groupName;
@@ -40,8 +40,8 @@ public class RelCustomerDeviceGroup {
 
     public RelCustomerDeviceGroup(
         Long  relCustomerDeviceGroupId,
-        Long customerId,
-        String deviceGroupId,
+        Long tabCustomerId,
+        Long tabDeviceGroupId,
         String groupName,
         Integer isOnwer,
         Integer isSendMsg,
@@ -49,8 +49,8 @@ public class RelCustomerDeviceGroup {
         Date modifiedDate,
         Integer isDeleted
     ) {
-        this.customerId = customerId;
-        this.deviceGroupId = deviceGroupId;
+        this.tabCustomerId = tabCustomerId;
+        this.tabDeviceGroupId = tabDeviceGroupId;
         this.groupName = groupName;
         this.isOnwer = isOnwer;
         this.isSendMsg = isSendMsg;
@@ -67,21 +67,20 @@ public class RelCustomerDeviceGroup {
         this.relCustomerDeviceGroupId = relCustomerDeviceGroupId;
     }
 
-
-    public Long getCustomerId() {
-        return customerId;
+    public Long getTabCustomerId() {
+        return tabCustomerId;
     }
 
-    public void setCustomerId(Long  customerId) {
-        this.customerId = customerId;
+    public void setTabCustomerId(Long tabCustomerId) {
+        this.tabCustomerId = tabCustomerId;
     }
 
-    public String getDeviceGroupId() {
-        return deviceGroupId;
+    public Long getTabDeviceGroupId() {
+        return tabDeviceGroupId;
     }
 
-    public void setDeviceGroupId(String  deviceGroupId) {
-        this.deviceGroupId = deviceGroupId;
+    public void setTabDeviceGroupId(Long tabDeviceGroupId) {
+        this.tabDeviceGroupId = tabDeviceGroupId;
     }
 
     public String getGroupName() {

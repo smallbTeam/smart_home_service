@@ -139,10 +139,10 @@ public class TabCustomerController {
             throws IOException {
         JsonResult<Object> result = new JsonResult<Object>();
         String newMobelPhone = request.getParameter("newMobelPhone");
-        String customerId = request.getParameter("customerId");
+        String tabCustomerId = request.getParameter("tabCustomerId");
         String veridateMsg = request.getParameter("veridateMsg");
         if ((StringUtil.isNotEmpty(veridateMsg)) && (StringUtil.isNotEmpty(newMobelPhone))
-                && (StringUtil.isNotEmpty(customerId))) {
+                && (StringUtil.isNotEmpty(tabCustomerId))) {
             // 验证session
             String msmRandomCode = (String) request.getSession().getAttribute("msgCodeSsion" + newMobelPhone);
             String randomCode = "";
@@ -165,7 +165,7 @@ public class TabCustomerController {
                     if (CollectionUtil.isEmpty(customer)) {
                         Map<String, Object> param = new HashMap<String, Object>();
                         TabCustomer tabCustomer = new TabCustomer();
-                        tabCustomer.setTabCustomerId(Integer.parseInt(customerId));
+                        tabCustomer.setTabCustomerId(Long.parseLong(tabCustomerId));
                         tabCustomer.setMobelPhone(newMobelPhone);
                         tabCustomerService.updateTabCustomerById(tabCustomer);
                         result.setCode(ResultCode.SUCCESS.getCode());
@@ -316,7 +316,7 @@ public class TabCustomerController {
     @ApiOperation("更新 用户表")
     @RequestMapping(value = "/tabCustomer/{tabCustomerId}", method = RequestMethod.PUT)
     public JsonResult<Object> updateTabCustomerById(
-            @ApiParam(value = "用户ID (必传参数)") @PathVariable Integer tabCustomerId,
+            @ApiParam(value = "用户ID (必传参数)") @PathVariable Long tabCustomerId,
             @ApiParam(value = "电话 (非必传参数)") @RequestParam(required = false) String mobelPhone,
             @ApiParam(value = "密码 (非必传参数)") @RequestParam(required = false) String password,
             @ApiParam(value = "微信Id (非必传参数)") @RequestParam(required = false) String wxId,
@@ -361,7 +361,7 @@ public class TabCustomerController {
 
     @ApiOperation("删除 用户表")
     @RequestMapping(value = "/tabCustomer/{tabCustomerId}", method = RequestMethod.DELETE)
-    public JsonResult<Object> delTabCustomerById(@ApiParam(value = "用户ID (必传参数)") @PathVariable Integer tabCustomerId)
+    public JsonResult<Object> delTabCustomerById(@ApiParam(value = "用户ID (必传参数)") @PathVariable Long tabCustomerId)
             throws Exception {
         JsonResult<Object> result = new JsonResult<Object>();
         tabCustomerService.delTabCustomerById(tabCustomerId);
