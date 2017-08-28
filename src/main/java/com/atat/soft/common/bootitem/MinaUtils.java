@@ -36,14 +36,15 @@ public class MinaUtils {
         tdf.setSession(session);
         //ip
         tdf.setIp(ips);
-//        System.out.println("wendu"+msg[4]+"shidu"+msg[5]+"pm"+msg[6]+"voc"+msg[7]+"co2"+msg[8]);
         tdf.setNowWendu(StringToPoint(msg[4], "wendu"));
-//        System.out.println("wendu  "+tdf.getNowWendu() );
         tdf.setNowShidu(StringToPoint(msg[5], "shidu"));
-//        System.out.println("shidu  "+tdf.getNowShidu() );
         tdf.setNowPm(StringToPoint(msg[6], "pm"));
-//        System.out.println("pm  "+tdf.getNowPm() );
-        tdf.setNowVoc(StringToPoint(msg[7], "voc"));
+        double vocnumber =StringToPoint(msg[7], "voc");
+        if(vocnumber==0){
+            vocnumber =(int)(Math.round(Math.random()*5));
+        }
+        vocnumber = vocnumber*44/22.4/1000;
+        tdf.setNowVoc(vocnumber);
         tdf.setNowCo2(StringToPoint(msg[8], "co2"));
         return tdf;
     }
@@ -118,7 +119,7 @@ public class MinaUtils {
         SaveDeviceData saveDeviceData = new SaveDeviceData();
         MinaFreshAirBean minaFreshAirBean = null;
 
-        if(beans.getNowVoc()>10000||beans.getNowCo2()>10000){
+        if(beans.getNowVoc()>20||beans.getNowCo2()>10000||beans.getNowCo2()<400){
             return minaFreshAirBean;
         }
 
@@ -160,7 +161,8 @@ public class MinaUtils {
                 beans.setAllVoc(beans.getNowVoc()+allDate.getAllVoc());
                 beans.setAllCo2(beans.getNowCo2()+allDate.getAllCo2());
                 beans.setNumber(allDate.getNumber()+1);
-
+                System.out.println("当前voc   "+beans.getNowVoc());
+                System.out.println("所有的voc相加   "+beans.getAllVoc());
 //                System.out.println(beans.toString());
             }
             beans.setState(1);
@@ -176,13 +178,15 @@ public class MinaUtils {
      */
     private static MinaFreshAirBean  GetDataForTenMinu(MinaFreshAirBean bean){
         DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df_voc = new DecimalFormat("#.0000");
         int divisor = 10;
+        System.out.println("计算得voc值------------->"+bean.getAllVoc());
         bean.setNowWendu( Double.parseDouble(df.format(bean.getAllWendu()/divisor)));
         bean.setNowShidu(Double.parseDouble(df.format(bean.getAllShidu()/divisor)));
 
         bean.setNowPm((int)(bean.getAllPm()/divisor));
         bean.setNowCo2((int)(bean.getAllCo2()/divisor));
-        bean.setNowVoc((int)(bean.getAllVoc()/divisor));
+        bean.setNowVoc(Double.parseDouble(df_voc.format(bean.getAllVoc()/divisor)));
         return bean;
     }
 

@@ -76,16 +76,16 @@ public class MinaServerHandler extends IoHandlerAdapter {
           String [] str = stringmsg.split("\\|");
           //////数组转化为对象
           MinaFreshAirBean bean =InPutMessageToBean(str,ips,session);
-
+          String   devicenumber = bean.getDevicenumber();
           /////第一次执行直接进行存库操作
-          if(null==map.get(session)){
+          if(null==map.get(devicenumber)){
           bean = writeBean(bean,0,null);
           }else{
           ////否则存60次数据
-          bean = writeBean(bean,1,map.get(session));
+          bean = writeBean(bean,1,map.get(devicenumber));
           }
           if(null!=bean){
-              map.put(session,bean);
+              map.put(bean.getDevicenumber(),bean);
           }
 
     }
@@ -112,7 +112,10 @@ public class MinaServerHandler extends IoHandlerAdapter {
     @Override
     public void sessionClosed(IoSession session) throws Exception {
         System.out.println("关闭session");
-        map.remove(session);
+        String device =  GetDeviceNumberForSession(session);
+        if(!"".equals(device)||device!=null){
+            map.remove(device);
+        }
         session.close(true);
     }
 
@@ -125,7 +128,10 @@ public class MinaServerHandler extends IoHandlerAdapter {
      */
     @Override
     public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
-        map.remove(session);
+        String device =  GetDeviceNumberForSession(session);
+        if(!"".equals(device)||device!=null){
+            map.remove(device);
+        }
         session.close(true);
         System.out.println("长时间未连接" + new Date());
     }
@@ -140,6 +146,10 @@ public class MinaServerHandler extends IoHandlerAdapter {
     @Override
     public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
         System.out.println("服务端异常..." + cause);
+        String device =  GetDeviceNumberForSession(session);
+        if(!"".equals(device)||device!=null){
+            map.remove(device);
+        }
     }
 
     /**
@@ -149,13 +159,17 @@ public class MinaServerHandler extends IoHandlerAdapter {
      * @return
      */
     public static Map<String, Object> GetNowData(String deviceid) {
+        System.out.println("aaaaaaaaaaaaaaaaa");
         Map<String, Object> getmap = new HashMap<String, Object>();
         MinaFreshAirBean bean = map.get(deviceid);
-        getmap.put("wendu", bean.getNowWendu());
-        getmap.put("shidu", bean.getNowShidu());
-        getmap.put("pm", bean.getNowPm());
-        getmap.put("co2", bean.getNowCo2());
-        getmap.put("voc", bean.getNowVoc());
+        System.out.println(bean.toString());
+        if(bean!=null) {
+            getmap.put("wendu", bean.getNowWendu());
+            getmap.put("shidu", bean.getNowShidu());
+            getmap.put("pm", bean.getNowPm());
+            getmap.put("co2", bean.getNowCo2());
+            getmap.put("voc", bean.getNowVoc());
+        }
         return getmap;
     }
 
@@ -181,6 +195,26 @@ public class MinaServerHandler extends IoHandlerAdapter {
         }
         return list;
     }
+
+
+    /**
+     * 比较session获取设备号
+     *
+     * @param session
+     * @return
+     */
+    public static String GetDeviceNumberForSession(IoSession session) {
+        String deviceId = "";
+        for (Map.Entry<Object, MinaFreshAirBean> entry : map.entrySet()) {
+            MinaFreshAirBean beenas = new MinaFreshAirBean();
+            beenas = entry.getValue();
+            if (beenas.getSession()==session) {
+                deviceId = beenas.getDevicenumber();
+            }
+        }
+        return deviceId;
+    }
+
 
     /**
      * @param
