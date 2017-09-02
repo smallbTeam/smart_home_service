@@ -187,7 +187,7 @@ public class MinaServerHandler extends IoHandlerAdapter {
             beenas = entry.getValue();
             if (beenas.getIp().equals(ip)) {
                 ///// 测试
-                IoSession session = (IoSession) entry.getKey();
+                IoSession session =  beenas.getSession();
                 String ips=GetSessionFromSession(session);
                 System.out.println("客户端向mina请求时session中存在的ip  " + ips + "  内存中存储的ip   " + beenas.getIp());
                 list.add(beenas.getDevicenumber());
