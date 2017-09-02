@@ -24,8 +24,8 @@ public class SpecScheduled {
     private static final Logger logger = LoggerFactory.getLogger(SpecScheduled.class);
 
     // 间隔3小时执行任务
+    //    @Scheduled(cron = "0 0/1 * * * ?")
     @Scheduled(cron = "0 5 0/3 * * ?")
-//    @Scheduled(cron = "0 0/1 * * * ?")
     public static void threeHoursEachScheduled() {
          Thread current = Thread.currentThread();
          System.out.println("间隔3小时定时任务:" + current.getId());
@@ -36,8 +36,8 @@ public class SpecScheduled {
     }
 
     // 每天1点执行任务
+    //    @Scheduled(cron = "0 0/2 * * * ?")
     @Scheduled(cron = "0 0 1 * * ?")
-//    @Scheduled(cron = "0 0/2 * * * ?")
     public static void oneDayEachScheduled() {
          Thread current = Thread.currentThread();
          System.out.println("每天1点定时任务:" + current.getId());
@@ -48,8 +48,8 @@ public class SpecScheduled {
     }
 
     // 每周凌晨半点执行任务
+    //    @Scheduled(cron = "0 0/3 * * * ?")
     @Scheduled(cron = "0 30 0 ? * SAT")
-//    @Scheduled(cron = "0 0/3 * * * ?")
     public static void oneWeekEachScheduled() {
          Thread current = Thread.currentThread();
          System.out.println("每周凌晨半点定时任务:" + current.getId());
