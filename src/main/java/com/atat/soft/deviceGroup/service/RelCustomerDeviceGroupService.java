@@ -1,5 +1,6 @@
 package com.atat.soft.deviceGroup.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.atat.core.db.model.PageTurn;
 import com.atat.soft.deviceGroup.bean.RelCustomerDeviceGroup;
 
@@ -59,4 +60,13 @@ public interface RelCustomerDeviceGroupService {
      * @param ip
      */
     public Map<String, Object> findDeviceByIp(String ip);
+
+    /**
+     * 设备发出报警信息
+     * @param deviceSeriaNumber
+     * @param wxWarnModel
+     * @param putData
+     * @return
+     */
+    public Integer deviceSendAlarmToCustomer(String deviceSeriaNumber,String wxWarnModel,JSONObject putData);
 }

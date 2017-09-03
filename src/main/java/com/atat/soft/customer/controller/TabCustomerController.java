@@ -372,7 +372,7 @@ public class TabCustomerController {
     @ApiOperation("查询 用户表")
     @RequestMapping(value = "/tabCustomer/{tabCustomerId}", method = RequestMethod.GET)
     public JsonResult<Map<String, Object>>
-            getTabCustomerById(@ApiParam(value = "用户ID (必传参数)") @PathVariable Integer tabCustomerId) throws Exception {
+            getTabCustomerById(@ApiParam(value = "用户ID (必传参数)") @PathVariable Long tabCustomerId) throws Exception {
         JsonResult<Map<String, Object>> result = new JsonResult<Map<String, Object>>();
         Map<String, Object> rs = new HashMap<String, Object>();
         result.setObj(tabCustomerService.getTabCustomerById(tabCustomerId));

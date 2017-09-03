@@ -38,23 +38,23 @@ public class WeixinAction {
 
     /**
      * 微信推送消息
-     * @param touser
+     * @param tousers
      * @param url
      * @param template_id
      * @param data
      * @return
      */
-    public static Integer sendWeixinMessage(List<String> touser, String url, String template_id, JSONObject data) {
+    public static Integer sendWeixinMessage(List<String> tousers, String url, String template_id, JSONObject data) {
         TabPropertyMapService tabPropertyMapService = (TabPropertyMapService) SpringBeanFactoryUtils.getBean("tabPropertyMapService");
         Map<String, Object> param_sepm = new HashMap<String, Object>();
         Map<String, Object> propMap = tabPropertyMapService.getTabPropertyMapById("accessToken");
         String accesstoken = (String) propMap.get("propval");
         String urls = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + accesstoken;
         Integer sentRes = 0;
-        for (int i = 0;i < touser.size();i++) {
+        for (int i = 0;i < tousers.size();i++) {
             // 封装数据
             JSONObject json = new JSONObject();
-            json.put("touser", touser.get(i));// 接收者wxName
+            json.put("touser", tousers.get(i));// 接收者wxName
             json.put("template_id", template_id);// 消息模板
             if (StringUtil.isNotEmpty(url)) {
                 json.put("url", url);// 填写url可查看详情

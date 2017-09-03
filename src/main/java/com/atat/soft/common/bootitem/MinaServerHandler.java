@@ -7,7 +7,6 @@ import org.apache.mina.core.session.IoSession;
 
 import java.net.InetSocketAddress;
 import java.util.*;
-
 import static com.atat.soft.common.bootitem.MinaUtils.InPutMessageToBean;
 import static com.atat.soft.common.bootitem.MinaUtils.writeBean;
 
@@ -75,7 +74,7 @@ public class MinaServerHandler extends IoHandlerAdapter {
           /////转化为string数组
           String [] str = stringmsg.split("\\|");
           //////数组转化为对象
-          MinaFreshAirBean bean =InPutMessageToBean(str,ips,session);
+          MinaFreshAirBean bean = InPutMessageToBean(str,ips,session);
           String   devicenumber = bean.getDevicenumber();
           /////第一次执行直接进行存库操作
           if(null==map.get(devicenumber)){
@@ -159,10 +158,8 @@ public class MinaServerHandler extends IoHandlerAdapter {
      * @return
      */
     public static Map<String, Object> GetNowData(String deviceid) {
-        System.out.println("aaaaaaaaaaaaaaaaa");
         Map<String, Object> getmap = new HashMap<String, Object>();
         MinaFreshAirBean bean = map.get(deviceid);
-        System.out.println(bean.toString());
         if(bean!=null) {
             getmap.put("wendu", bean.getNowWendu());
             getmap.put("shidu", bean.getNowShidu());
@@ -227,8 +224,6 @@ public class MinaServerHandler extends IoHandlerAdapter {
             ///// 测试
             IoSession session = (IoSession) entry.getKey();
             String ips=GetSessionFromSession(session);
-
-
             System.out.println("客户端向mina请求时session中存在的ip  " + ips);
             sendMessage("aaaa", session);
         }
@@ -245,7 +240,6 @@ public class MinaServerHandler extends IoHandlerAdapter {
         String[] str = clientIP.split("\\.");
         System.out.println(clientIP+"   "+str.length);
         if(str.length>3){
-
             getip = str[0]+"."+str[1]+"."+str[2]+"."+str[3];
         }
         System.out.println(getip);

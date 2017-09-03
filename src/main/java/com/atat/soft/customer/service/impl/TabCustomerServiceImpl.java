@@ -51,7 +51,7 @@ public class TabCustomerServiceImpl extends BaseSupportServiceImpl implements Ta
     }
 
     @Override
-    public Map<String, Object> getTabCustomerById(Integer tabCustomerId) {
+    public Map<String, Object> getTabCustomerById(Long tabCustomerId) {
         Map<String, Object> tabCustomerinfo = new HashMap<String, Object>();
         Map<String, Object> rs = new HashMap<String, Object>();
         rs.put("tabCustomerId", tabCustomerId);

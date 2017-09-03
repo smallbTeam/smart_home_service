@@ -46,7 +46,7 @@ public interface TabCustomerService {
      * @param tabCustomerId
      * @return
      */
-    public Map<String, Object> getTabCustomerById(Integer tabCustomerId);
+    public Map<String, Object> getTabCustomerById(Long tabCustomerId);
 
     /**
      * 依据Id删除 用户表 记录

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atat.soft.record.dao.TabCustomerArarmRecordDao">
+
+    <insert id="addTabCustomerArarmRecord" parameterType="com.atat.soft.record.bean.TabCustomerArarmRecord">
+        INSERT INTO tab_customer_ararm_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="tabCustomerId != null">
+                    tabCustomerId,
+                </if>
+                <if test="deviceSeriaNumber != null">
+                    deviceSeriaNumber,
+                </if>
+                <if test="content != null">
+                    content,
+                </if>
+                <if test="type != null">
+                    type,
+                </if>
+                <if test="createdDate != null">
+                    createdDate,
+                </if>
+                <if test="createdDate != null">
+                    modifiedDate,
+                </if>
+                    isDeleted
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="tabCustomerId != null">
+                    #{tabCustomerId},
+                </if>
+                <if test="deviceSeriaNumber != null">
+                    #{deviceSeriaNumber},
+                </if>
+                <if test="content != null">
+                    #{content},
+                </if>
+                <if test="type != null">
+                    #{type},
+                </if>
+                <if test="createdDate != null">
+                    #{createdDate},
+                </if>
+                <if test="createdDate != null">
+                    #{createdDate},
+                </if>
+                0
+        </trim>
+    </insert>
+
+    <update id="updateTabCustomerArarmRecordById" parameterType="com.atat.soft.record.bean.TabCustomerArarmRecord">
+        update tab_customer_ararm_record
+        <trim prefix="set" suffixOverrides=",">
+                <if test="tabCustomerId != null">
+                    tabCustomerId =#{tabCustomerId},
+                </if>
+                <if test="deviceSeriaNumber != null">
+                    deviceSeriaNumber =#{deviceSeriaNumber},
+                </if>
+                <if test="content != null">
+                    content =#{content},
+                </if>
+                <if test="type != null">
+                    type =#{type},
+                </if>
+                <if test="createdDate != null">
+                    createdDate =#{createdDate},
+                </if>
+                <if test="modifiedDate != null">
+                    modifiedDate =#{modifiedDate},
+                </if>
+                <if test="isDeleted != null">
+                    isDeleted =#{isDeleted},
+                </if>
+        </trim>
+        where id = #{tabCustomerArarmRecordId}
+    </update>
+
+    <select id="selectTabCustomerArarmRecordList" parameterType="java.util.Map"
+            resultType="java.util.Map">
+        select
+            tabCustomerId tabCustomerId,
+            deviceSeriaNumber deviceSeriaNumber,
+            content content,
+            type type,
+            createdDate createdDate,
+            modifiedDate modifiedDate,
+            isDeleted isDeleted,
+        id tabCustomerArarmRecordId
+        from tab_customer_ararm_record
+        WHERE
+        isDeleted = 0
+        <if test="tabCustomerArarmRecordId != null">
+            and id = #{tabCustomerArarmRecordId}
+        </if>
+        <if test="tabCustomerId != null">
+            and tabCustomerId = #{tabCustomerId}
+        </if>
+        <if test="deviceSeriaNumber != null">
+            and deviceSeriaNumber like #{deviceSeriaNumber}
+        </if>
+        <if test="content != null">
+            and content like #{content}
+        </if>
+        <if test="type != null">
+            and type = #{type}
+        </if>
+        <if test="createdDate != null">
+            and createdDate = #{createdDate}
+        </if>
+        <if test="modifiedDate != null">
+            and modifiedDate = #{modifiedDate}
+        </if>
+        ORDER BY modifiedDate DESC
+    </select>
+
+    <delete id="delTabCustomerArarmRecordById" parameterType="java.lang.Long">
+        DELETE FROM  tab_customer_ararm_record
+        where
+        id = #{tabCustomerArarmRecordId}
+    </delete>
+
+</mapper>

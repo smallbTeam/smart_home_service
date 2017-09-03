@@ -10,6 +10,7 @@ import com.atat.soft.common.bootitem.MinaServer;
 import com.atat.soft.common.prop.SmsPaltformProperty;
 import com.atat.soft.common.prop.WxPlatformProperty;
 import com.atat.soft.customer.service.impl.TabCustomerServiceImpl;
+import com.atat.soft.deviceGroup.service.impl.RelCustomerDeviceGroupServiceImpl;
 import com.atat.soft.freshair.service.impl.*;
 import com.atat.soft.message.action.WeixinAction;
 import com.atat.soft.property.service.impl.TabPropertyMapServiceImpl;
@@ -85,6 +86,11 @@ public class ApplicationWeb extends WebApplication {
     @Bean(name = "dataFreshairWeekService")
     public DataFreshairWeekServiceImpl getDataFreshairWeekServiceImpl() {
         return new DataFreshairWeekServiceImpl();
+    }
+
+    @Bean(name = "relCustomerDeviceGroupService")
+    public RelCustomerDeviceGroupServiceImpl getRelCustomerDeviceGroupServiceImpl(){
+        return new RelCustomerDeviceGroupServiceImpl();
     }
 
     public static void main(final String[] args) {
