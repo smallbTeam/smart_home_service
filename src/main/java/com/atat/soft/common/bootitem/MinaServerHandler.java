@@ -7,7 +7,6 @@ import org.apache.mina.core.session.IoSession;
 
 import java.net.InetSocketAddress;
 import java.util.*;
-import static com.atat.soft.common.bootitem.MinaUtils.InPutMessageToBean;
 import static com.atat.soft.common.bootitem.MinaUtils.writeBean;
 
 /**
@@ -74,7 +73,7 @@ public class MinaServerHandler extends IoHandlerAdapter {
           /////转化为string数组
           String [] str = stringmsg.split("\\|");
           //////数组转化为对象
-          MinaFreshAirBean bean = InPutMessageToBean(str,ips,session);
+          MinaFreshAirBean bean = MinaUtils.InPutMessageToBean(str,ips,session);
           String   devicenumber = bean.getDevicenumber();
           /////第一次执行直接进行存库操作
           if(null==map.get(devicenumber)){
@@ -158,14 +157,10 @@ public class MinaServerHandler extends IoHandlerAdapter {
      * @return
      */
     public static Map<String, Object> GetNowData(String deviceid) {
-        Map<String, Object> getmap = new HashMap<String, Object>();
+        Map<String, Object> getmap = null;
         MinaFreshAirBean bean = map.get(deviceid);
         if(bean!=null) {
-            getmap.put("wendu", bean.getNowWendu());
-            getmap.put("shidu", bean.getNowShidu());
-            getmap.put("pm", bean.getNowPm());
-            getmap.put("co2", bean.getNowCo2());
-            getmap.put("voc", bean.getNowVoc());
+            getmap = MinaUtils.GetDateForResult(bean);
         }
         return getmap;
     }

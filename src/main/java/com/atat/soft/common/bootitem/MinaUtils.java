@@ -34,7 +34,7 @@ public class MinaUtils {
      * @param session
      * @return
      */
-    public MinaFreshAirBean InPutMessageToBean(String[] msg, String ips, IoSession session) {
+    public static MinaFreshAirBean InPutMessageToBean(String[] msg, String ips, IoSession session) {
         MinaFreshAirBean tdf = new MinaFreshAirBean();
 
         //设备号
@@ -43,7 +43,7 @@ public class MinaUtils {
         tdf.setSession(session);
         //ip
         tdf.setIp(ips);
-        tdf.setNowWendu(StringToPoint(msg[4], "wendu"));
+        tdf.setNowWendu((StringToPoint(msg[4], "wendu"))-1.5);
         tdf.setNowShidu(StringToPoint(msg[5], "shidu"));
         tdf.setNowPm(StringToPoint(msg[6], "pm"));
         double vocnumber = StringToPoint(msg[7], "voc");
@@ -205,7 +205,7 @@ public class MinaUtils {
      * 提醒推送
      */
 
-    private void AlarmPush(MinaFreshAirBean bean) {
+    private static void AlarmPush(MinaFreshAirBean bean) {
 
         ///获取时间
         Date date = new Date();
@@ -214,6 +214,7 @@ public class MinaUtils {
         String datas[] = JudgmentResult(bean);
 
         for (int i = 0; i < 5; i++) {
+            System.out.println("datas[i]----   "+datas[i]);
             if (!datas[i].equals("0")) {
                 JSONObject putData = new JSONObject();
                 putData.put("first", ContentToJsonObj("用户您好:", "#173177"));
@@ -249,9 +250,77 @@ public class MinaUtils {
      * 计算空气监测高中低
      */
 
-    private String[] JudgmentResult(MinaFreshAirBean bean) {
-        String[] str = new String[5];
+    public static Map<String, Object> GetDateForResult(MinaFreshAirBean bean) {
         double wendu, shidu, pm, co, voc;
+        Map<String, Object> getmap = new HashMap<String, Object>();
+        wendu = bean.getNowWendu();
+        shidu = bean.getNowShidu();
+        pm = bean.getNowPm();
+        co = bean.getNowCo2();
+        voc = bean.getNowVoc();
+
+        getmap.put("wendu", wendu);
+        getmap.put("shidu", shidu);
+        getmap.put("pm", pm);
+        getmap.put("co2", co);
+        getmap.put("voc", voc);
+
+
+        if (wendu < 5) {
+            getmap.put("wenstate", "1");
+        } else if (wendu > 35) {
+            getmap.put("wenstate", "2");
+        } else {
+            getmap.put("wenstate", "0");
+        }
+
+        if (shidu > 90) {
+            getmap.put("shistate", "2");
+        } else if (shidu < 10) {
+            getmap.put("shistate", "1");
+        } else {
+            getmap.put("shistate", "0");
+        }
+
+        if (pm >= 50 && pm < 80) {
+            getmap.put("pmstate", "3");
+        } else if (pm >= 80 && pm < 150) {
+            getmap.put("pmstate", "4");
+        } else if (pm >= 150 && pm < 300) {
+            getmap.put("pmstate", "5");
+        } else if (pm >= 300) {
+            getmap.put("pmstate", "6");
+        } else {
+            getmap.put("pmstate", "0");
+        }
+
+        if (co >= 1000 && co < 2000) {
+            getmap.put("costate", "3");
+        } else if (co >= 2000 && co < 5000) {
+            getmap.put("costate", "5");
+        } else if (co >= 5000) {
+            getmap.put("costate", "6");
+        } else {
+            getmap.put("costate", "0");
+        }
+
+        if (voc >= 0.15 && voc < 0.3) {
+            getmap.put("vocstate", "3");
+        } else if (voc >= 0.3) {
+            getmap.put("vocstate", "6");
+        } else {
+            getmap.put("vocstate", "0");
+        }
+        return getmap;
+    }
+
+    /**
+     * 计算空气监测高中低
+     */
+
+    public static String[] JudgmentResult(MinaFreshAirBean bean) {
+        double wendu, shidu, pm, co, voc;
+        String [] str = new String[5];
         wendu = bean.getNowWendu();
         shidu = bean.getNowShidu();
         pm = bean.getNowPm();
@@ -303,11 +372,10 @@ public class MinaUtils {
         } else {
             str[4] = "0";
         }
-
-
         return str;
 
     }
+
 
 
 }

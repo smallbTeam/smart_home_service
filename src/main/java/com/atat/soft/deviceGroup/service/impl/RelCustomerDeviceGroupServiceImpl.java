@@ -156,17 +156,17 @@ public class RelCustomerDeviceGroupServiceImpl extends BaseSupportServiceImpl im
                 List<String> tousers = new ArrayList<String>();
                 Integer cont = 0;
                 for (Map<String, Object> relCustomerDeviceGroup : relCustomerDeviceGroupList) {
-                    Long tabCustomerId = Long.parseLong(relCustomerDeviceGroup.get("relCustomerDeviceGroup").toString());
+                    Long tabCustomerId = Long.parseLong(relCustomerDeviceGroup.get("tabCustomerId").toString());
                     Map<String, Object> tabCustomer = tabCustomerService.getTabCustomerById(tabCustomerId);
                     String wxId = (String) tabCustomer.get("wxId");
                     // 依据用户信息和system字段查找最近一次发送时间
                     Map<String, Object> findCustomerArarmRecordParam = new HashMap<String, Object>();
                     findCustomerArarmRecordParam.put("tabCustomerId", tabCustomerId);
                     findCustomerArarmRecordParam.put("deviceSeriaNumber", deviceSeriaNumber);
-                    findCustomerArarmRecordParam.put("content", (String) putData.get("system"));
+                    findCustomerArarmRecordParam.put("content", putData.get("system").toString());
                     List<Map<String, Object>> tabCustomerArarmRecordList = tabCustomerArarmRecordService.selectTabCustomerArarmRecordList(findCustomerArarmRecordParam);
                     TabCustomerArarmRecord tabCustomerArarmRecordBean = new TabCustomerArarmRecord();
-                    tabCustomerArarmRecordBean.setContent((String) putData.get("system"));
+                    tabCustomerArarmRecordBean.setContent(putData.get("system").toString());
                     tabCustomerArarmRecordBean.setTabCustomerId(tabCustomerId);
                     tabCustomerArarmRecordBean.setDeviceSeriaNumber(deviceSeriaNumber);
                     tabCustomerArarmRecordBean.setType(1);
@@ -175,7 +175,7 @@ public class RelCustomerDeviceGroupServiceImpl extends BaseSupportServiceImpl im
                         if (CollectionUtil.isNotEmpty(tabCustomerArarmRecord)) {
                             Long tabCustomerArarmRecordId = Long.parseLong(tabCustomerArarmRecord.get("tabCustomerArarmRecordId").toString());
                             Date recordDate = (Date) tabCustomerArarmRecord.get("modifiedDate");
-                            if ((new Date().getTime() - recordDate.getTime()) > 10800) {
+                            if ((new Date().getTime() - recordDate.getTime()) > 10800000) {
                                 // 发送给时间超过 则添加微信Id 并更新记录
                                 tousers.add(wxId);
                                 cont++;
