@@ -226,7 +226,7 @@ public class MinaUtils {
                 //result 发送~~~
                 WxPlatformProperty wxPlatformProperty = (WxPlatformProperty)SpringBeanFactoryUtils.getBean("wxPlatformProperty");
                 RelCustomerDeviceGroupService relCustomerDeviceGroupService = (RelCustomerDeviceGroupService) SpringBeanFactoryUtils.getBean("relCustomerDeviceGroupService");
-                relCustomerDeviceGroupService.deviceSendAlarmToCustomer(bean.getDevicenumber(),wxPlatformProperty.getWxWarnModel(),putData);
+                //relCustomerDeviceGroupService.deviceSendAlarmToCustomer(bean.getDevicenumber(),wxPlatformProperty.getWxWarnModel(),putData);
             }
         }
     }

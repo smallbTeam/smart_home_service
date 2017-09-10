@@ -59,4 +59,11 @@ public interface DataFreshairNowService {
      * @return
      */
     public List<Map<String, Object>> getThreeHourDeviceData(Long tabDeviceFreshairId);
+
+    /**
+     * 计算空气检测设备时间段内平均值
+     * @param param
+     * @return
+     */
+    public List<Map<String, Object>> timingNowAverageData(Map param);
 }

@@ -144,7 +144,6 @@
         AVG(pm) `pm`,
         AVG(voc) `voc`,
         AVG(co2) `co2`,
-        AVG(wendu) `wendu`,
         recordTime recordTime
         FROM
         data_freshair_day

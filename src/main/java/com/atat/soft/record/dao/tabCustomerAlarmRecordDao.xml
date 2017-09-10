@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.atat.soft.record.dao.TabCustomerArarmRecordDao">
+<mapper namespace="com.atat.soft.record.dao.TabCustomerAlarmRecordDao">
 
-    <insert id="addTabCustomerArarmRecord" parameterType="com.atat.soft.record.bean.TabCustomerArarmRecord">
-        INSERT INTO tab_customer_ararm_record
+    <insert id="addTabCustomerAlarmRecord" parameterType="com.atat.soft.record.bean.TabCustomerAlarmRecord">
+        INSERT INTO tab_customer_alarm_record
         <trim prefix="(" suffix=")" suffixOverrides=",">
                 <if test="tabCustomerId != null">
                     tabCustomerId,
@@ -11,11 +11,20 @@
                 <if test="deviceSeriaNumber != null">
                     deviceSeriaNumber,
                 </if>
+                <if test="partName != null">
+                    partName,
+                </if>
+                <if test="mark != null">
+                    mark,
+                </if>
                 <if test="content != null">
                     content,
                 </if>
                 <if test="type != null">
                     type,
+                </if>
+                <if test="count != null">
+                    count,
                 </if>
                 <if test="createdDate != null">
                     createdDate,
@@ -32,24 +41,33 @@
                 <if test="deviceSeriaNumber != null">
                     #{deviceSeriaNumber},
                 </if>
+                <if test="partName != null">
+                    #{partName},
+                </if>
+                <if test="mark != null">
+                    #{mark},
+                </if>
                 <if test="content != null">
                     #{content},
                 </if>
                 <if test="type != null">
                     #{type},
                 </if>
-                <if test="createdDate != null">
-                    #{createdDate},
+                <if test="count != null">
+                    #{count},
                 </if>
                 <if test="createdDate != null">
                     #{createdDate},
                 </if>
-                0
+                <if test="createdDate != null">
+                    #{createdDate},
+                </if>
+                1
         </trim>
     </insert>
 
-    <update id="updateTabCustomerArarmRecordById" parameterType="com.atat.soft.record.bean.TabCustomerArarmRecord">
-        update tab_customer_ararm_record
+    <update id="updateTabCustomerAlarmRecordById" parameterType="com.atat.soft.record.bean.TabCustomerAlarmRecord">
+        update tab_customer_alarm_record
         <trim prefix="set" suffixOverrides=",">
                 <if test="tabCustomerId != null">
                     tabCustomerId =#{tabCustomerId},
@@ -57,11 +75,20 @@
                 <if test="deviceSeriaNumber != null">
                     deviceSeriaNumber =#{deviceSeriaNumber},
                 </if>
+                <if test="partName != null">
+                    partName =#{partName},
+                </if>
+                <if test="mark != null">
+                    mark =#{mark},
+                </if>
                 <if test="content != null">
                     content =#{content},
                 </if>
                 <if test="type != null">
                     type =#{type},
+                </if>
+                <if test="count != null">
+                    count =#{count},
                 </if>
                 <if test="createdDate != null">
                     createdDate =#{createdDate},
@@ -73,25 +100,28 @@
                     isDeleted =#{isDeleted},
                 </if>
         </trim>
-        where id = #{tabCustomerArarmRecordId}
+        where id = #{tabCustomerAlarmRecordId}
     </update>
 
-    <select id="selectTabCustomerArarmRecordList" parameterType="java.util.Map"
+    <select id="selectTabCustomerAlarmRecordList" parameterType="java.util.Map"
             resultType="java.util.Map">
         select
             tabCustomerId tabCustomerId,
             deviceSeriaNumber deviceSeriaNumber,
+            partName partName,
+            mark mark,
             content content,
             type type,
+            count count,
             createdDate createdDate,
             modifiedDate modifiedDate,
             isDeleted isDeleted,
-        id tabCustomerArarmRecordId
-        from tab_customer_ararm_record
+        id tabCustomerAlarmRecordId
+        from tab_customer_alarm_record
         WHERE
         isDeleted = 0
-        <if test="tabCustomerArarmRecordId != null">
-            and id = #{tabCustomerArarmRecordId}
+        <if test="tabCustomerAlarmRecordId != null">
+            and id = #{tabCustomerAlarmRecordId}
         </if>
         <if test="tabCustomerId != null">
             and tabCustomerId = #{tabCustomerId}
@@ -99,11 +129,20 @@
         <if test="deviceSeriaNumber != null">
             and deviceSeriaNumber like #{deviceSeriaNumber}
         </if>
+        <if test="partName != null">
+            and partName like #{partName}
+        </if>
+        <if test="mark != null">
+            and mark like #{mark}
+        </if>
         <if test="content != null">
             and content like #{content}
         </if>
         <if test="type != null">
             and type = #{type}
+        </if>
+        <if test="count != null">
+            and count = #{count}
         </if>
         <if test="createdDate != null">
             and createdDate = #{createdDate}
@@ -114,10 +153,10 @@
         ORDER BY modifiedDate DESC
     </select>
 
-    <delete id="delTabCustomerArarmRecordById" parameterType="java.lang.Long">
-        DELETE FROM  tab_customer_ararm_record
+    <delete id="delTabCustomerAlarmRecordById" parameterType="java.lang.Long">
+        DELETE FROM  tab_customer_alarm_record
         where
-        id = #{tabCustomerArarmRecordId}
+        id = #{tabCustomerAlarmRecordId}
     </delete>
 
 </mapper>

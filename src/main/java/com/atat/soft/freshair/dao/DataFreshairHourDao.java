@@ -48,7 +48,7 @@ public interface DataFreshairHourDao {
      * @param param
      * @return
      */
-    List<Map<String, Object>> timingHourAverageData(Map<String, Object> param);
+    public List<Map<String, Object>> timingHourAverageData(Map<String, Object> param);
 
     /**
      * 删除时间节点之前的数据

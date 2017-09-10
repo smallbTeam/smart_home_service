@@ -100,4 +100,8 @@ public class DataFreshairNowServiceImpl extends BaseSupportServiceImpl implement
         categoryParameter = FreshAirDataFormate.formateDataForEchar(deviceThreeHourData);
         return categoryParameter;
     }
+
+    @Override public List<Map<String, Object>> timingNowAverageData(Map param) {
+        return dataFreshairNowDao.timingNowAverageData(param);
+    }
 }

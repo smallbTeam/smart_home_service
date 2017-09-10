@@ -3,8 +3,8 @@ package com.atat.soft.record.controller;
 import com.atat.soft.common.bean.JsonResult;
 import com.atat.soft.util.StringUtil;
 import com.atat.soft.common.bean.ResultCode;
-import com.atat.soft.record.bean.TabCustomerArarmRecord;
-import com.atat.soft.record.service.TabCustomerArarmRecordService;
+import com.atat.soft.record.bean.TabCustomerAlarmRecord;
+import com.atat.soft.record.service.TabCustomerAlarmRecordService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -21,26 +21,29 @@ import java.util.Map;
 
 /**
  * @author wuhaosoft
- * @version $Id TabCustomerArarmRecordController.java, 2017-09-03 22:49:20 wuhaosoft Exp
+ * @version $Id TabCustomerAlarmRecordController.java, 2017-09-10 19:43:03 wuhaosoft Exp
  *
  */
-@Api("用户设备分组关系表接口")
+@Api("给用户发送警报纪录表接口")
 @RestController
 @RequestMapping("/record")
-public class TabCustomerArarmRecordController {
+public class TabCustomerAlarmRecordController {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private TabCustomerArarmRecordService tabCustomerArarmRecordService;
+    private TabCustomerAlarmRecordService tabCustomerAlarmRecordService;
 
     @ApiOperation("查询 所有 给用户发送警报纪录表 分页")
-    @RequestMapping(value = "/tabCustomerArarmRecords", method = RequestMethod.POST)
-    public Object getTabCustomerArarmRecordPageTurn(
+    @RequestMapping(value = "/tabCustomerAlarmRecords", method = RequestMethod.POST)
+    public Object getTabCustomerAlarmRecordPageTurn(
             @ApiParam(value = "用户Id (非必传参数)") @RequestParam(required = false) Long tabCustomerId,
             @ApiParam(value = "设备序列号 (非必传参数)") @RequestParam(required = false) String deviceSeriaNumber,
-            @ApiParam(value = "组名称 (非必传参数)") @RequestParam(required = false) String content,
+            @ApiParam(value = "报警部位 (非必传参数)") @RequestParam(required = false) String partName,
+            @ApiParam(value = "报警标记 (非必传参数)") @RequestParam(required = false) String mark,
+            @ApiParam(value = "发送消息内容 (非必传参数)") @RequestParam(required = false) String content,
             @ApiParam(value = "1微信 2短信 (非必传参数)") @RequestParam(required = false) Integer type,
+            @ApiParam(value = "报警次数 (非必传参数)") @RequestParam(required = false) Integer count,
             @ApiParam(value = "创建时间 (非必传参数)") @RequestParam(required = false) Date createdDate,
             @ApiParam(value = "修改时间 (非必传参数)") @RequestParam(required = false) Date modifiedDate,
             @ApiParam(value = "是否删除 1:是 2:否 (非必传参数)") @RequestParam(required = false) Integer isDeleted,
@@ -53,11 +56,20 @@ public class TabCustomerArarmRecordController {
         if (StringUtil.isNotEmpty(deviceSeriaNumber)) {
            rs.put("deviceSeriaNumber", "%" + deviceSeriaNumber + "%");
         }
+        if (StringUtil.isNotEmpty(partName)) {
+           rs.put("partName", "%" + partName + "%");
+        }
+        if (StringUtil.isNotEmpty(mark)) {
+           rs.put("mark", "%" + mark + "%");
+        }
         if (StringUtil.isNotEmpty(content)) {
            rs.put("content", "%" + content + "%");
         }
         if (null != type) {
            rs.put("type", type);
+        }
+        if (null != count) {
+           rs.put("count", count);
         }
         if (null != createdDate) {
            rs.put("createdDate", createdDate);
@@ -68,16 +80,19 @@ public class TabCustomerArarmRecordController {
         if (null != isDeleted) {
            rs.put("isDeleted", isDeleted);
         }
-        return tabCustomerArarmRecordService.getTabCustomerArarmRecordPageTurn(rs, pageNo, pageSize);
+        return tabCustomerAlarmRecordService.getTabCustomerAlarmRecordPageTurn(rs, pageNo, pageSize);
     }
 
     @ApiOperation("查询 所有 给用户发送警报纪录表")
-    @RequestMapping(value = "/allTabCustomerArarmRecords", method = RequestMethod.POST)
-    public JsonResult<Object> selectTabCustomerArarmRecordList(
+    @RequestMapping(value = "/allTabCustomerAlarmRecords", method = RequestMethod.POST)
+    public JsonResult<Object> selectTabCustomerAlarmRecordList(
         @ApiParam(value = "用户Id (非必传参数)") @RequestParam(required = false) Long tabCustomerId,
         @ApiParam(value = "设备序列号 (非必传参数)") @RequestParam(required = false) String deviceSeriaNumber,
-        @ApiParam(value = "组名称 (非必传参数)") @RequestParam(required = false) String content,
+        @ApiParam(value = "报警部位 (非必传参数)") @RequestParam(required = false) String partName,
+        @ApiParam(value = "报警标记 (非必传参数)") @RequestParam(required = false) String mark,
+        @ApiParam(value = "发送消息内容 (非必传参数)") @RequestParam(required = false) String content,
         @ApiParam(value = "1微信 2短信 (非必传参数)") @RequestParam(required = false) Integer type,
+        @ApiParam(value = "报警次数 (非必传参数)") @RequestParam(required = false) Integer count,
         @ApiParam(value = "创建时间 (非必传参数)") @RequestParam(required = false) Date createdDate,
         @ApiParam(value = "修改时间 (非必传参数)") @RequestParam(required = false) Date modifiedDate,
         @ApiParam(value = "是否删除 1:是 2:否 (非必传参数)") @RequestParam(required = false) Integer isDeleted
@@ -90,11 +105,20 @@ public class TabCustomerArarmRecordController {
          if (StringUtil.isNotEmpty(deviceSeriaNumber)) {
             rs.put("deviceSeriaNumber", "%" + deviceSeriaNumber + "%");
          }
+         if (StringUtil.isNotEmpty(partName)) {
+            rs.put("partName", "%" + partName + "%");
+         }
+         if (StringUtil.isNotEmpty(mark)) {
+            rs.put("mark", "%" + mark + "%");
+         }
          if (StringUtil.isNotEmpty(content)) {
             rs.put("content", "%" + content + "%");
          }
         if (null != type) {
             rs.put("type", type);
+        }
+        if (null != count) {
+            rs.put("count", count);
         }
         if (null != createdDate) {
             rs.put("createdDate", createdDate);
@@ -105,112 +129,136 @@ public class TabCustomerArarmRecordController {
         if (null != isDeleted) {
             rs.put("isDeleted", isDeleted);
         }
-        result.setObj(tabCustomerArarmRecordService.selectTabCustomerArarmRecordList(rs));
+        result.setObj(tabCustomerAlarmRecordService.selectTabCustomerAlarmRecordList(rs));
         result.setCode(ResultCode.SUCCESS.getCode());
         return result;
     }
 
     @ApiOperation("新增 给用户发送警报纪录表")
-    @RequestMapping(value = "/tabCustomerArarmRecord", method = RequestMethod.POST)
-    public JsonResult<Object> addTabCustomerArarmRecord(
+    @RequestMapping(value = "/tabCustomerAlarmRecord", method = RequestMethod.POST)
+    public JsonResult<Object> addTabCustomerAlarmRecord(
                 @ApiParam(value = "用户Id (非必传参数)") @RequestParam(required = false) Long tabCustomerId,
                 @ApiParam(value = "设备序列号 (非必传参数)") @RequestParam(required = false) String deviceSeriaNumber,
-                @ApiParam(value = "组名称 (非必传参数)") @RequestParam(required = false) String content,
+                @ApiParam(value = "报警部位 (非必传参数)") @RequestParam(required = false) String partName,
+                @ApiParam(value = "报警标记 (非必传参数)") @RequestParam(required = false) String mark,
+                @ApiParam(value = "发送消息内容 (非必传参数)") @RequestParam(required = false) String content,
                 @ApiParam(value = "1微信 2短信 (非必传参数)") @RequestParam(required = false) Integer type,
+                @ApiParam(value = "报警次数 (非必传参数)") @RequestParam(required = false) Integer count,
                 @ApiParam(value = "创建时间 (非必传参数)") @RequestParam(required = false) Date createdDate,
                 @ApiParam(value = "修改时间 (非必传参数)") @RequestParam(required = false) Date modifiedDate,
                 @ApiParam(value = "是否删除 1:是 2:否 (非必传参数)") @RequestParam(required = false) Integer isDeleted
             ) throws Exception {
         JsonResult<Object> result = new JsonResult<Object>();
-        TabCustomerArarmRecord tabCustomerArarmRecord = new TabCustomerArarmRecord();
+        TabCustomerAlarmRecord tabCustomerAlarmRecord = new TabCustomerAlarmRecord();
         if (null != tabCustomerId) {
-            tabCustomerArarmRecord.setTabCustomerId(tabCustomerId);
+            tabCustomerAlarmRecord.setTabCustomerId(tabCustomerId);
         }
         if (StringUtil.isNotEmpty(deviceSeriaNumber)) {
-           tabCustomerArarmRecord.setDeviceSeriaNumber(deviceSeriaNumber);
+           tabCustomerAlarmRecord.setDeviceSeriaNumber(deviceSeriaNumber);
+        }
+        if (StringUtil.isNotEmpty(partName)) {
+           tabCustomerAlarmRecord.setPartName(partName);
+        }
+        if (StringUtil.isNotEmpty(mark)) {
+           tabCustomerAlarmRecord.setMark(mark);
         }
         if (StringUtil.isNotEmpty(content)) {
-           tabCustomerArarmRecord.setContent(content);
+           tabCustomerAlarmRecord.setContent(content);
         }
         if (null != type) {
-            tabCustomerArarmRecord.setType(type);
+            tabCustomerAlarmRecord.setType(type);
+        }
+        if (null != count) {
+            tabCustomerAlarmRecord.setCount(count);
         }
         if (null != createdDate) {
-            tabCustomerArarmRecord.setCreatedDate(createdDate);
+            tabCustomerAlarmRecord.setCreatedDate(createdDate);
         }
         if (null != modifiedDate) {
-            tabCustomerArarmRecord.setModifiedDate(modifiedDate);
+            tabCustomerAlarmRecord.setModifiedDate(modifiedDate);
         }
         if (null != isDeleted) {
-            tabCustomerArarmRecord.setIsDeleted(isDeleted);
+            tabCustomerAlarmRecord.setIsDeleted(isDeleted);
         }
-        //tabCustomerArarmRecord.setCreatedDate(new Date());
-        tabCustomerArarmRecordService.addTabCustomerArarmRecord(tabCustomerArarmRecord);
+        //tabCustomerAlarmRecord.setCreatedDate(new Date());
+        tabCustomerAlarmRecordService.addTabCustomerAlarmRecord(tabCustomerAlarmRecord);
         result.setCode(ResultCode.SUCCESS.getCode());
         return result;
     }
 
     @ApiOperation("更新 给用户发送警报纪录表")
-    @RequestMapping(value = "/tabCustomerArarmRecord/{tabCustomerArarmRecordId}", method = RequestMethod.PUT)
-    public JsonResult<Object> updateTabCustomerArarmRecordById(
-            @ApiParam(value = "给用户发送警报纪录表Id (必传参数)") @PathVariable Long  tabCustomerArarmRecordId,
+    @RequestMapping(value = "/tabCustomerAlarmRecord/{tabCustomerAlarmRecordId}", method = RequestMethod.PUT)
+    public JsonResult<Object> updateTabCustomerAlarmRecordById(
+            @ApiParam(value = "给用户发送警报纪录表Id (必传参数)") @PathVariable Long  tabCustomerAlarmRecordId,
              @ApiParam(value = "用户Id (非必传参数)") @RequestParam(required = false) Long tabCustomerId,
              @ApiParam(value = "设备序列号 (非必传参数)") @RequestParam(required = false) String deviceSeriaNumber,
-             @ApiParam(value = "组名称 (非必传参数)") @RequestParam(required = false) String content,
+             @ApiParam(value = "报警部位 (非必传参数)") @RequestParam(required = false) String partName,
+             @ApiParam(value = "报警标记 (非必传参数)") @RequestParam(required = false) String mark,
+             @ApiParam(value = "发送消息内容 (非必传参数)") @RequestParam(required = false) String content,
              @ApiParam(value = "1微信 2短信 (非必传参数)") @RequestParam(required = false) Integer type,
+             @ApiParam(value = "报警次数 (非必传参数)") @RequestParam(required = false) Integer count,
              @ApiParam(value = "创建时间 (非必传参数)") @RequestParam(required = false) Date createdDate,
              @ApiParam(value = "修改时间 (非必传参数)") @RequestParam(required = false) Date modifiedDate,
              @ApiParam(value = "是否删除 1:是 2:否 (非必传参数)") @RequestParam(required = false) Integer isDeleted
             ) throws Exception {
         JsonResult<Object> result = new JsonResult<Object>();
-        TabCustomerArarmRecord tabCustomerArarmRecord = new TabCustomerArarmRecord();
-        tabCustomerArarmRecord.setTabCustomerArarmRecordId(tabCustomerArarmRecordId);
+        TabCustomerAlarmRecord tabCustomerAlarmRecord = new TabCustomerAlarmRecord();
+        tabCustomerAlarmRecord.setTabCustomerAlarmRecordId(tabCustomerAlarmRecordId);
 
          if (null != tabCustomerId) {
-            tabCustomerArarmRecord.setTabCustomerId(tabCustomerId);
+            tabCustomerAlarmRecord.setTabCustomerId(tabCustomerId);
          }
          if (StringUtil.isNotEmpty(deviceSeriaNumber)) {
-            tabCustomerArarmRecord.setDeviceSeriaNumber(deviceSeriaNumber);
+            tabCustomerAlarmRecord.setDeviceSeriaNumber(deviceSeriaNumber);
+         }
+         if (StringUtil.isNotEmpty(partName)) {
+            tabCustomerAlarmRecord.setPartName(partName);
+         }
+         if (StringUtil.isNotEmpty(mark)) {
+            tabCustomerAlarmRecord.setMark(mark);
          }
          if (StringUtil.isNotEmpty(content)) {
-            tabCustomerArarmRecord.setContent(content);
+            tabCustomerAlarmRecord.setContent(content);
          }
          if (null != type) {
-            tabCustomerArarmRecord.setType(type);
+            tabCustomerAlarmRecord.setType(type);
+         }
+         if (null != count) {
+            tabCustomerAlarmRecord.setCount(count);
          }
          if (null != createdDate) {
-            tabCustomerArarmRecord.setCreatedDate(createdDate);
+            tabCustomerAlarmRecord.setCreatedDate(createdDate);
          }
          if (null != modifiedDate) {
-            tabCustomerArarmRecord.setModifiedDate(modifiedDate);
+            tabCustomerAlarmRecord.setModifiedDate(modifiedDate);
          }
          if (null != isDeleted) {
-            tabCustomerArarmRecord.setIsDeleted(isDeleted);
+            tabCustomerAlarmRecord.setIsDeleted(isDeleted);
          }
-        //tabCustomerArarmRecord.setModifiedDate(new Date());
-        tabCustomerArarmRecordService.updateTabCustomerArarmRecordById(tabCustomerArarmRecord);
+        //tabCustomerAlarmRecord.setModifiedDate(new Date());
+        tabCustomerAlarmRecordService.updateTabCustomerAlarmRecordById(tabCustomerAlarmRecord);
         result.setCode(ResultCode.SUCCESS.getCode());
         return result;
     }
 
     @ApiOperation("删除 给用户发送警报纪录表")
-    @RequestMapping(value = "/tabCustomerArarmRecord/{tabCustomerArarmRecordId}", method = RequestMethod.DELETE)
-    public JsonResult<Object> delTabCustomerArarmRecordById(
-             @ApiParam(value = "给用户发送警报纪录表Id (必传参数)") @PathVariable Long  tabCustomerArarmRecordId
+    @RequestMapping(value = "/tabCustomerAlarmRecord/{tabCustomerAlarmRecordId}", method = RequestMethod.DELETE)
+    public JsonResult<Object> delTabCustomerAlarmRecordById(
+             @ApiParam(value = "给用户发送警报纪录表Id (必传参数)") @PathVariable Long  tabCustomerAlarmRecordId
             ) throws Exception {
         JsonResult<Object> result = new JsonResult<Object>();
-        tabCustomerArarmRecordService.delTabCustomerArarmRecordById(tabCustomerArarmRecordId);
+        tabCustomerAlarmRecordService.delTabCustomerAlarmRecordById(tabCustomerAlarmRecordId);
         result.setCode(ResultCode.SUCCESS.getCode());
         return result;
     }
 
     @ApiOperation("查询 给用户发送警报纪录表")
-    @RequestMapping(value = "/tabCustomerArarmRecord/{tabCustomerArarmRecordId}", method = RequestMethod.GET)
-    public JsonResult<Map<String, Object>> getTabCustomerArarmRecordById(
-            @ApiParam(value = "给用户发送警报纪录表Id (必传参数)") @PathVariable Long  tabCustomerArarmRecordId) throws Exception {
+    @RequestMapping(value = "/tabCustomerAlarmRecord/{tabCustomerAlarmRecordId}", method = RequestMethod.GET)
+    public JsonResult<Map<String, Object>> getTabCustomerAlarmRecordById(
+            @ApiParam(value = "给用户发送警报纪录表Id (必传参数)") @PathVariable Long  tabCustomerAlarmRecordId) throws Exception {
         JsonResult<Map<String, Object>> result = new JsonResult<Map<String, Object>>();
         Map<String, Object> rs = new HashMap<String, Object>();
-        result.setObj(tabCustomerArarmRecordService.getTabCustomerArarmRecordById(tabCustomerArarmRecordId));
+        result.setObj(tabCustomerAlarmRecordService.getTabCustomerAlarmRecordById(tabCustomerAlarmRecordId));
         result.setCode(ResultCode.SUCCESS.getCode());
         return result;
     }

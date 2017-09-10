@@ -122,7 +122,6 @@
         AVG(pm) `pm`,
         AVG(voc) `voc`,
         AVG(co2) `co2`,
-        AVG(wendu) `wendu`,
         recordTime recordTime
         FROM
         data_freshair_now
@@ -133,6 +132,9 @@
         </if>
         <if test="recordTimeEnd !=null">
             <![CDATA[ and  recordTime <= #{recordTimeEnd}]]>
+        </if>
+        <if test="tabDeviceFreshairId != null">
+            tabDeviceFreshairId =#{tabDeviceFreshairId},
         </if>
         GROUP BY
         tabDeviceFreshairId

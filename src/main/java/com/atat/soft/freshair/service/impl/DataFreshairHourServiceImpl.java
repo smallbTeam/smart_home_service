@@ -97,4 +97,8 @@ public class DataFreshairHourServiceImpl extends BaseSupportServiceImpl implemen
         categoryParameter = FreshAirDataFormate.formateDataForEchar(deviceOneDayData);
         return categoryParameter;
     }
+
+    @Override public List<Map<String, Object>> timingHourAverageData(Map param) {
+        return dataFreshairHourDao.timingHourAverageData(param);
+    }
 }

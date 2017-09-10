@@ -63,10 +63,37 @@ public interface RelCustomerDeviceGroupService {
 
     /**
      * 设备发出报警信息
-     * @param deviceSeriaNumber
-     * @param wxWarnModel
-     * @param putData
+     * @param deviceSeriaNumber 设备序列号
+     * @param wxWarnModel 微信模板
+     * @param putData 消息内容
      * @return
      */
     public Integer deviceSendAlarmToCustomer(String deviceSeriaNumber,String wxWarnModel,JSONObject putData);
+
+    /**
+     * 设备发送报警信息
+     * @param deviceSeriaNumber 设备序列号
+     * @param partName 报警部位名称
+     * @param mark 报警状态 轻度:mildly 中度：moderate 高度:severe
+     * @param content 给用户的消息内容
+     * @return
+     */
+    public Integer deviceSendAlarm(String deviceSeriaNumber,String partName,String mark,String content);
+
+    /**
+     * 空气检测设备监控 检查状态并报警
+     * @return
+     */
+    public Integer freshairAlarmMonitor();
+
+    /**
+     * 空气监测设备给用户推送前一天的空气状况
+     * @return
+     */
+    public Integer freshAirDeviceSendOneDayReport();
+
+    /**
+     * 推送轻度警报
+     */
+    public Integer SendMildlyAlarm();
 }
