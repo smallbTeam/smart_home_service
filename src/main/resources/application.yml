@@ -47,4 +47,6 @@ wxPlatform:
   wxAppId: wxe53df1855bab1cc8
   wxSecret: 70f10e2dfd552c39fd4be98c81fd0f0d
   wxWarnModel: L9KbX2H3pprmm2J3c3uh7TAonffAjMqYLMST78BAlmE
+allow:
+  origin: *
 #debug: true
